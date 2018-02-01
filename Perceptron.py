@@ -25,8 +25,8 @@ class Perceptron(object):
         # 最后利用reduce求和
         return self.activator(
             reduce(lambda a, b: a + b,
-                   map(lambda x: x[0] * x[1],
-                       zip(input_vec, self.weights))
+                   list(map(lambda x: x[0] * x[1],
+                       zip(input_vec, self.weights)))
                 , 0.0) + self.bias)
     def train(self, input_vecs, labels, iteration, rate):
         '''
@@ -55,9 +55,9 @@ class Perceptron(object):
         # 变成[(x1,w1),(x2,w2),(x3,w3),...]
         # 然后利用感知器规则更新权重
         delta = label - output
-        self.weights = map(
+        self.weights = list(map(
             lambda x: x[1] + rate * delta * x[0],
-            zip(input_vec, self.weights))
+            zip(input_vec, self.weights)))
         # 更新bias
         self.bias += rate * delta
 
