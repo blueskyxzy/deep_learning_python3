@@ -2,8 +2,8 @@
 # -*- coding: UTF-8 -*-
 
 import numpy as np
-import matplotlib_test3 as mpl
-import matplotlib_test3.pyplot as plt
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 
 # 通过rcParams设置全局横纵轴字体大小
 mpl.rcParams['xtick.labelsize'] = 24
