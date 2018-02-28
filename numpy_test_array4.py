@@ -83,3 +83,14 @@ array([[ 0,  1,  2],
        [ 9, 10, 11]])
 '''
 c - 1
+
+M = [[1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1]]
+N = [[1, 1], [1, 1], [1, 1]]
+R = [[0, 0], [0, 0], [0, 0], [0, 0]]
+for i in range(len(M)):
+    for j in range(2):
+        sum = 0
+        for k in range(len(N)):
+            sum += M[i][k]*N[k][j]
+        R[i][j] = sum
+print(R)
