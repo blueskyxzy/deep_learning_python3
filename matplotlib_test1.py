@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
+
 # 通过rcParams设置全局横纵轴字体大小
 mpl.rcParams['xtick.labelsize'] = 24
 mpl.rcParams['ytick.labelsize'] = 24
