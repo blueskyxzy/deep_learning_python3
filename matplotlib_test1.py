@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+#线性图和散点图
+
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt

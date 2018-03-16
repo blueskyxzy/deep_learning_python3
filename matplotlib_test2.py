@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+#柱状图和圆饼图，子图
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
