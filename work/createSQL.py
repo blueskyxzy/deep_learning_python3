@@ -425,35 +425,38 @@ y = [859007,
 # | station_user                   |user_id
 # | station_user_history           |user_id
 # | visit_application              |applier_user_id  process_user_id
-for i in range(len(x)):
-    print("update cabinet_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
 
-for i in range(len(x)):
-    print("update company_certification set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
 
-for i in range(len(x)):
-    print("update contract set signature_user_id = " + str(y[i]) + " where signature_user_id = " + str(x[i]))
 
-for i in range(len(x)):
-    print("update pay_bill set pay_user_id = " + str(y[i]) + " where pay_user_id = " + str(x[i]))
-
-for i in range(len(x)):
-    print("update receipt_application set apply_user_id = " + str(y[i]) + " where apply_user_id = " + str(x[i]))
-
-for i in range(len(x)):
-    print("update station_order set book_user_id = " + str(y[i]) + " and operation_book_user_id = " + str(y[i]) + " and manual_change_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
-
-for i in range(len(x)):
-    print("update station_status_info set book_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
-
-for i in range(len(x)):
-    print("update station_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
-
-for i in range(len(x)):
-    print("update station_user_history set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
-
-for i in range(len(x)):
-    print("update visit_application set applier_user_id = " + str(y[i]) + " and process_user_id = " + str(y[i]) + " where applier_user_id = " + str(x[i]))
+# for i in range(len(x)):
+#     print("update cabinet_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+#
+# for i in range(len(x)):
+#     print("update company_certification set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+#
+# for i in range(len(x)):
+#     print("update contract set signature_user_id = " + str(y[i]) + " where signature_user_id = " + str(x[i]))
+#
+# for i in range(len(x)):
+#     print("update pay_bill set pay_user_id = " + str(y[i]) + " where pay_user_id = " + str(x[i]))
+#
+# for i in range(len(x)):
+#     print("update receipt_application set apply_user_id = " + str(y[i]) + " where apply_user_id = " + str(x[i]))
+#
+# for i in range(len(x)):
+#     print("update station_order set book_user_id = " + str(y[i]) + " and operation_book_user_id = " + str(y[i]) + " and manual_change_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+#
+# for i in range(len(x)):
+#     print("update station_status_info set book_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+#
+# for i in range(len(x)):
+#     print("update station_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+#
+# for i in range(len(x)):
+#     print("update station_user_history set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+#
+# for i in range(len(x)):
+#     print("update visit_application set applier_user_id = " + str(y[i]) + " and process_user_id = " + str(y[i]) + " where applier_user_id = " + str(x[i]))
 
 # 生成并把SQL保存到文件
 
