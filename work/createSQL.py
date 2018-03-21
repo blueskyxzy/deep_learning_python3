@@ -1,8 +1,65 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+import os
+from io import StringIO
+
+fileName = "/Users/xzy/Desktop/xzy/changeIdSQL.txt"  # 文件路径可以修改
+
+
+def fn_changeidsql():
+    f = StringIO(fileName)
+    for i in range(len(x)):
+        f.write("update cabinet_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+
+    for i in range(len(x)):
+        f.write("update company_certification set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+
+    for i in range(len(x)):
+        f.write("update contract set signature_user_id = " + str(y[i]) + " where signature_user_id = " + str(x[i]))
+
+    for i in range(len(x)):
+        f.write("update pay_bill set pay_user_id = " + str(y[i]) + " where pay_user_id = " + str(x[i]))
+
+    for i in range(len(x)):
+        f.write("update receipt_application set apply_user_id = " + str(y[i]) + " where apply_user_id = " + str(x[i]))
+
+    for i in range(len(x)):
+        f.write("update station_order set book_user_id = " + str(y[i]) + " and operation_book_user_id = " + str(
+              y[i]) + " and manual_change_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+
+    for i in range(len(x)):
+        f.write("update station_status_info set book_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+
+    for i in range(len(x)):
+         f.write("update station_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+
+    for i in range(len(x)):
+         f.write("update station_user_history set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+
+    for i in range(len(x)):
+         f.write("update visit_application set applier_user_id = " + str(y[i]) + " and process_user_id = " + str(
+              y[i]) + " where applier_user_id = " + str(x[i]))
+
 
 # id订正
-x = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 17, 18, 19, 20, 21, 22, 25, 26, 28, 31, 34, 35, 36, 38, 41, 42, 43, 51, 56, 61, 70, 71, 73, 74, 75, 76, 77, 78, 85, 104, 138, 147, 153, 156, 159, 162, 177, 191, 193, 194, 196, 206, 226, 232, 237, 239, 243, 248, 280, 285, 302, 304, 305, 327, 328, 335, 336, 345, 366, 370, 372, 375, 387, 388, 395, 410, 440, 455, 456, 458, 459, 494, 514, 529, 543, 576, 608, 619, 620, 633, 638, 660, 688, 700, 705, 710, 712, 714, 718, 719, 727, 743, 752, 753, 757, 777, 781, 793, 804, 805, 815, 828, 835, 838, 849, 858, 862, 863, 881, 884, 888, 897, 898, 901, 966, 970, 1012, 1020, 1035, 1036, 1037, 1038, 1065, 1073, 1080, 1098, 1105, 1111, 1139, 1140, 1160, 1177, 1182, 1281, 1346, 1365, 1414, 1415, 1418, 1427, 1428, 1432, 1439, 1440, 1449, 1455, 1493, 1504, 1510, 1632, 1641, 1645, 1646, 1671, 1692, 1694, 1699, 1701, 1803, 1843, 1891, 1951, 2044, 2113, 2161, 2162, 2213, 2222, 2293, 2295, 2309, 2325, 2326, 2350, 2422, 2425, 2514, 2551, 2556, 2569, 2584, 2606, 2630, 2634, 2648, 2660, 2686, 2764, 2765, 2833, 2834, 2838, 2882, 2912, 2924, 2998, 3000, 3063, 3074, 3122, 3135, 3147, 3149, 3151, 3158, 3161, 3176, 3214, 3270, 3313, 3328, 3364, 3399, 3401, 3406, 3430, 3431, 3432, 3439, 3476, 3534, 3593, 3631, 3635, 3640, 3651, 3670, 3709, 3716, 3725, 3732, 3763, 3803, 3810, 3850, 3852, 3879, 3880, 3938, 4039, 4042, 4049, 4052, 4101, 4110, 4121, 4124, 4137, 4141, 4160, 4190, 4197, 4198, 4199, 4205, 4208, 4230, 4238, 4261, 4262, 4271, 4283, 4285, 4286, 4304, 4306, 4315, 4325, 4337, 4383, 4400, 4431, 4512, 4524, 4568, 4570, 4592, 4594, 4611, 4612, 4617, 4618, 4621, 4626, 4638, 4659, 4675, 4692, 4700, 4701, 4702, 4715, 4722, 4734, 4738, 4746, 4752, 4813, 4865, 4866, 4878, 4887, 4907, 4946, 4947, 4979, 5003, 1200006, 1200040, 1200053, 1200081, 1200082, 1200083, 1200087, 1200095, 963359, 965132, 962808, 865955, 955929, 895493, 964404, 963071, 972087, 909765, 1067779, 1200100, 1200101, 1200102, 1200103, 1200105]
+x = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 17, 18, 19, 20, 21, 22, 25, 26, 28, 31, 34, 35, 36, 38, 41, 42, 43, 51, 56,
+     61, 70, 71, 73, 74, 75, 76, 77, 78, 85, 104, 138, 147, 153, 156, 159, 162, 177, 191, 193, 194, 196, 206, 226, 232,
+     237, 239, 243, 248, 280, 285, 302, 304, 305, 327, 328, 335, 336, 345, 366, 370, 372, 375, 387, 388, 395, 410, 440,
+     455, 456, 458, 459, 494, 514, 529, 543, 576, 608, 619, 620, 633, 638, 660, 688, 700, 705, 710, 712, 714, 718, 719,
+     727, 743, 752, 753, 757, 777, 781, 793, 804, 805, 815, 828, 835, 838, 849, 858, 862, 863, 881, 884, 888, 897, 898,
+     901, 966, 970, 1012, 1020, 1035, 1036, 1037, 1038, 1065, 1073, 1080, 1098, 1105, 1111, 1139, 1140, 1160, 1177,
+     1182, 1281, 1346, 1365, 1414, 1415, 1418, 1427, 1428, 1432, 1439, 1440, 1449, 1455, 1493, 1504, 1510, 1632, 1641,
+     1645, 1646, 1671, 1692, 1694, 1699, 1701, 1803, 1843, 1891, 1951, 2044, 2113, 2161, 2162, 2213, 2222, 2293, 2295,
+     2309, 2325, 2326, 2350, 2422, 2425, 2514, 2551, 2556, 2569, 2584, 2606, 2630, 2634, 2648, 2660, 2686, 2764, 2765,
+     2833, 2834, 2838, 2882, 2912, 2924, 2998, 3000, 3063, 3074, 3122, 3135, 3147, 3149, 3151, 3158, 3161, 3176, 3214,
+     3270, 3313, 3328, 3364, 3399, 3401, 3406, 3430, 3431, 3432, 3439, 3476, 3534, 3593, 3631, 3635, 3640, 3651, 3670,
+     3709, 3716, 3725, 3732, 3763, 3803, 3810, 3850, 3852, 3879, 3880, 3938, 4039, 4042, 4049, 4052, 4101, 4110, 4121,
+     4124, 4137, 4141, 4160, 4190, 4197, 4198, 4199, 4205, 4208, 4230, 4238, 4261, 4262, 4271, 4283, 4285, 4286, 4304,
+     4306, 4315, 4325, 4337, 4383, 4400, 4431, 4512, 4524, 4568, 4570, 4592, 4594, 4611, 4612, 4617, 4618, 4621, 4626,
+     4638, 4659, 4675, 4692, 4700, 4701, 4702, 4715, 4722, 4734, 4738, 4746, 4752, 4813, 4865, 4866, 4878, 4887, 4907,
+     4946, 4947, 4979, 5003, 1200006, 1200040, 1200053, 1200081, 1200082, 1200083, 1200087, 1200095, 963359, 965132,
+     962808, 865955, 955929, 895493, 964404, 963071, 972087, 909765, 1067779, 1200100, 1200101, 1200102, 1200103,
+     1200105]
 
 y = [859007,
      902953,
@@ -348,26 +405,53 @@ y = [859007,
      962518,
      962523]
 
+# | cabinet_user                   |user_id
+# | company_certification          |user_id
+# | contract                       |signature_user_id
+# | pay_bill                       |pay_user_id
+# | receipt_application            |apply_user_id
 # | station_order                  |book_user_id operation_book_user_id  manual_change_user_id
 # | station_status_info            |book_user_id
 # | station_user                   |user_id
 # | station_user_history           |user_id
 # | visit_application              |applier_user_id  process_user_id
 for i in range(len(x)):
-    print("update station_order set book_user_id = " + str(y[i]) + " and operation_book_user_id = " + str(y[i]) + " and manual_change_user_id = " + str(y[i]) + " where user_id =" + str(x[i]))
+    print("update cabinet_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
 
 for i in range(len(x)):
-    print("update station_status_info set book_user_id = " + str(y[i]) + " where user_id =" + str(x[i]))
+    print("update company_certification set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
 
 for i in range(len(x)):
-    print("update station_user set user_id = " + str(y[i]) + " where user_id =" + str(x[i]))
+    print("update contract set signature_user_id = " + str(y[i]) + " where signature_user_id = " + str(x[i]))
 
 for i in range(len(x)):
-    print("update station_user_history set user_id = " + str(y[i]) + " where user_id =" + str(x[i]))
+    print("update pay_bill set pay_user_id = " + str(y[i]) + " where pay_user_id = " + str(x[i]))
 
 for i in range(len(x)):
-    print("update visit_application set applier_user_id = " + str(y[i]) + " and process_user_id = " + str(y[i]) + " where user_id =" + str(x[i]))
+    print("update receipt_application set apply_user_id = " + str(y[i]) + " where apply_user_id = " + str(x[i]))
+
+for i in range(len(x)):
+    print("update station_order set book_user_id = " + str(y[i]) + " and operation_book_user_id = " + str(y[i]) + " and manual_change_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+
+for i in range(len(x)):
+    print("update station_status_info set book_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+
+for i in range(len(x)):
+    print("update station_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+
+for i in range(len(x)):
+    print("update station_user_history set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+
+for i in range(len(x)):
+    print("update visit_application set applier_user_id = " + str(y[i]) + " and process_user_id = " + str(y[i]) + " where applier_user_id = " + str(x[i]))
+
+# 生成并把SQL保存到文件
+
+if os.path.exists(fileName):
+    os.remove(fileName)
+    os.mknod(fileName)
+    fn_changeidsql()
+else:
+    fn_changeidsql()
 
 print("end")
-
-
