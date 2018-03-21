@@ -9,35 +9,45 @@ def fn_changeidsql():
     with open(fileName, 'w') as f:
         for i in range(len(x)):
             f.write("update cabinet_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+            f.write("\n")
 
         for i in range(len(x)):
             f.write("update company_certification set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+            f.write("\n")
 
         for i in range(len(x)):
             f.write("update contract set signature_user_id = " + str(y[i]) + " where signature_user_id = " + str(x[i]))
+            f.write("\n")
 
         for i in range(len(x)):
             f.write("update pay_bill set pay_user_id = " + str(y[i]) + " where pay_user_id = " + str(x[i]))
+            f.write("\n")
 
         for i in range(len(x)):
             f.write("update receipt_application set apply_user_id = " + str(y[i]) + " where apply_user_id = " + str(x[i]))
+            f.write("\n")
 
         for i in range(len(x)):
             f.write("update station_order set book_user_id = " + str(y[i]) + " and operation_book_user_id = " + str(
                   y[i]) + " and manual_change_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+            f.write("\n")
 
         for i in range(len(x)):
             f.write("update station_status_info set book_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+            f.write("\n")
 
         for i in range(len(x)):
              f.write("update station_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+             f.write("\n")
 
         for i in range(len(x)):
              f.write("update station_user_history set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+             f.write("\n")
 
         for i in range(len(x)):
              f.write("update visit_application set applier_user_id = " + str(y[i]) + " and process_user_id = " + str(
                   y[i]) + " where applier_user_id = " + str(x[i]))
+             f.write("\n")
 
 # id订正
 
