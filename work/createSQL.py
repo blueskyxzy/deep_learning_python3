@@ -1,47 +1,47 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 import os
-from io import StringIO
 
 fileName = "/Users/xzy/Desktop/xzy/changeIdSQL.txt"  # 文件路径可以修改
 
 
 def fn_changeidsql():
-    f = StringIO(fileName)
-    for i in range(len(x)):
-        f.write("update cabinet_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+    with open(fileName, 'w') as f:
+        for i in range(len(x)):
+            f.write("update cabinet_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
 
-    for i in range(len(x)):
-        f.write("update company_certification set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+        for i in range(len(x)):
+            f.write("update company_certification set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
 
-    for i in range(len(x)):
-        f.write("update contract set signature_user_id = " + str(y[i]) + " where signature_user_id = " + str(x[i]))
+        for i in range(len(x)):
+            f.write("update contract set signature_user_id = " + str(y[i]) + " where signature_user_id = " + str(x[i]))
 
-    for i in range(len(x)):
-        f.write("update pay_bill set pay_user_id = " + str(y[i]) + " where pay_user_id = " + str(x[i]))
+        for i in range(len(x)):
+            f.write("update pay_bill set pay_user_id = " + str(y[i]) + " where pay_user_id = " + str(x[i]))
 
-    for i in range(len(x)):
-        f.write("update receipt_application set apply_user_id = " + str(y[i]) + " where apply_user_id = " + str(x[i]))
+        for i in range(len(x)):
+            f.write("update receipt_application set apply_user_id = " + str(y[i]) + " where apply_user_id = " + str(x[i]))
 
-    for i in range(len(x)):
-        f.write("update station_order set book_user_id = " + str(y[i]) + " and operation_book_user_id = " + str(
-              y[i]) + " and manual_change_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+        for i in range(len(x)):
+            f.write("update station_order set book_user_id = " + str(y[i]) + " and operation_book_user_id = " + str(
+                  y[i]) + " and manual_change_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
 
-    for i in range(len(x)):
-        f.write("update station_status_info set book_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
+        for i in range(len(x)):
+            f.write("update station_status_info set book_user_id = " + str(y[i]) + " where book_user_id = " + str(x[i]))
 
-    for i in range(len(x)):
-         f.write("update station_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+        for i in range(len(x)):
+             f.write("update station_user set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
 
-    for i in range(len(x)):
-         f.write("update station_user_history set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
+        for i in range(len(x)):
+             f.write("update station_user_history set user_id = " + str(y[i]) + " where user_id = " + str(x[i]))
 
-    for i in range(len(x)):
-         f.write("update visit_application set applier_user_id = " + str(y[i]) + " and process_user_id = " + str(
-              y[i]) + " where applier_user_id = " + str(x[i]))
-
+        for i in range(len(x)):
+             f.write("update visit_application set applier_user_id = " + str(y[i]) + " and process_user_id = " + str(
+                  y[i]) + " where applier_user_id = " + str(x[i]))
 
 # id订正
+
+
 x = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 17, 18, 19, 20, 21, 22, 25, 26, 28, 31, 34, 35, 36, 38, 41, 42, 43, 51, 56,
      61, 70, 71, 73, 74, 75, 76, 77, 78, 85, 104, 138, 147, 153, 156, 159, 162, 177, 191, 193, 194, 196, 206, 226, 232,
      237, 239, 243, 248, 280, 285, 302, 304, 305, 327, 328, 335, 336, 345, 366, 370, 372, 375, 387, 388, 395, 410, 440,
@@ -447,11 +447,6 @@ for i in range(len(x)):
 
 # 生成并把SQL保存到文件
 
-if os.path.exists(fileName):
-    os.remove(fileName)
-    os.mknod(fileName)
-    fn_changeidsql()
-else:
-    fn_changeidsql()
+fn_changeidsql()
 
 print("end")
