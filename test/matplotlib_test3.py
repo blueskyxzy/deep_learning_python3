@@ -19,9 +19,14 @@ y = np.linspace(0, 1, n_grids)
 
 # x和y是长度为n_grids的array
 # meshgrid会把x和y组合成n_grids*n_grids的array，X和Y对应位置就是所有格点的坐标
+
+# meshgrid的作用是根据传入的两个一维数组参数生成两个数组元素的列表。
+# 如果第一个参数是xarray，维度是xdimesion，第二个参数是yarray，维度是ydimesion。
+# 那么生成的第一个二维数组是以xarray为行，ydimesion行的向量；而第二个二维数组是以yarray的转置为列，xdimesion列的向量。
 X, Y = np.meshgrid(x, y)
 
 # 生成一个0值的傅里叶谱
+# np.zeros生成相应大小的零矩阵
 spectrum = np.zeros((n_grids, n_grids), dtype=np.complex)
 
 # 生成一段噪音，长度是(2*nf+1)**2/2
