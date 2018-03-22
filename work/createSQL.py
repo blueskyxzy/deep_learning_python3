@@ -2,7 +2,9 @@
 # -*- coding: UTF-8 -*-
 import os
 
+# id订正
 fileName = "/Users/xzy/Desktop/xzy/changeIdSQL.txt"  # 文件路径可以修改
+callbackFile = "/Users/xzy/Desktop/xzy/idCallback.txt"
 
 
 def fn_changeidsql():
@@ -49,7 +51,50 @@ def fn_changeidsql():
                   y[i]) + " where applier_user_id = " + str(x[i]))
              f.write("\n")
 
-# id订正
+
+def fn_idcallbacksql():
+    with open(callbackFile, 'w') as f:
+        for i in range(len(x)):
+            f.write("update cabinet_user set user_id = " + str(x[i]) + " where user_id = " + str(y[i]))
+            f.write("\n")
+
+        for i in range(len(x)):
+            f.write("update company_certification set user_id = " + str(x[i]) + " where user_id = " + str(y[i]))
+            f.write("\n")
+
+        for i in range(len(x)):
+            f.write("update contract set signature_user_id = " + str(x[i]) + " where signature_user_id = " + str(y[i]))
+            f.write("\n")
+
+        for i in range(len(x)):
+            f.write("update pay_bill set pay_user_id = " + str(x[i]) + " where pay_user_id = " + str(y[i]))
+            f.write("\n")
+
+        for i in range(len(x)):
+            f.write("update receipt_application set apply_user_id = " + str(x[i]) + " where apply_user_id = " + str(y[i]))
+            f.write("\n")
+
+        for i in range(len(x)):
+            f.write("update station_order set book_user_id = " + str(x[i]) + " and operation_book_user_id = " + str(
+                  x[i]) + " and manual_change_user_id = " + str(x[i]) + " where book_user_id = " + str(y[i]))
+            f.write("\n")
+
+        for i in range(len(x)):
+            f.write("update station_status_info set book_user_id = " + str(x[i]) + " where book_user_id = " + str(y[i]))
+            f.write("\n")
+
+        for i in range(len(x)):
+             f.write("update station_user set user_id = " + str(x[i]) + " where user_id = " + str(y[i]))
+             f.write("\n")
+
+        for i in range(len(x)):
+             f.write("update station_user_history set user_id = " + str(x[i]) + " where user_id = " + str(y[i]))
+             f.write("\n")
+
+        for i in range(len(x)):
+             f.write("update visit_application set applier_user_id = " + str(x[i]) + " and process_user_id = " + str(
+                  x[i]) + " where applier_user_id = " + str(y[i]))
+             f.write("\n")
 
 
 x = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 17, 18, 19, 20, 21, 22, 25, 26, 28, 31, 34, 35, 36, 38, 41, 42, 43, 51, 56,
@@ -461,5 +506,7 @@ y = [859007,
 # 生成并把SQL保存到文件
 
 fn_changeidsql()
+
+fn_idcallbacksql()
 
 print("end")
