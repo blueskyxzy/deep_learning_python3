@@ -6,6 +6,11 @@ import numpy as np
 
 # 3D图标必须的模块，project='3d'的定义
 from mpl_toolkits.mplot3d import Axes3D
+# 曲面图
+# 这个例子中先生成一个所有值均为0的复数array作为初始频谱，然后把频谱中央部分用随机生成，但同时共轭关于中心对称的子矩阵进行填充。
+# 这相当于只有低频成分的一个随机频谱。最后进行反傅里叶变换就得到一个随机波动的曲面
+
+# fft是离散傅立叶变换；fft2是2维离散傅立叶变换
 
 np.random.seed(42)
 
@@ -52,14 +57,18 @@ Z = np.real(np.fft.ifft2(np.fft.ifftshift(spectrum)))
 fig = plt.figure('3D surface & wire')
 
 # 第一个子图，surface图
-ax = fig.add_subplot(1, 2, 1, projection='3d')
+ax = fig.add_subplot(1, 3, 1, projection='3d')
 
 # alpha定义透明度，cmap是color map
 # rstride和cstride是两个方向上的采样，越小越精细，lw是线宽
 ax.plot_surface(X, Y, Z, alpha=0.7, cmap='jet', rstride=1, cstride=1, lw=0)
 
 # 第二个子图，网线图
-ax = fig.add_subplot(1, 2, 2, projection='3d')
+ax = fig.add_subplot(1, 3, 2, projection='3d')
 ax.plot_wireframe(X, Y, Z, rstride=3, cstride=3, lw=0.5)
 
+# # 第三个子图， 测试
+# test = np.real(spectrum)
+# ax = fig.add_subplot(1, 3, 3, projection='3d')
+# ax.plot_surface(X, Y, test)
 plt.show()
