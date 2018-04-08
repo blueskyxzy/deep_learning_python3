@@ -4,8 +4,12 @@
 from perceptron import Perceptron
 import matplotlib.pyplot as plt
 
-#定义激活函数f
+
+# 定义激活函数f
 f = lambda x: x
+# def f(x):
+#     return x
+
 
 class LinearUnit(Perceptron):
     def __init__(self, input_num):
@@ -33,8 +37,8 @@ def train_linear_unit():
     lu = LinearUnit(1)
     # 训练，迭代10轮, 学习速率为0.01
     input_vecs, labels = get_training_dataset()
-    lu.train(input_vecs, labels, 10, 0.01)
-    #返回训练好的线性单元
+    lu.train(input_vecs, labels, 100, 0.01)
+    # 返回训练好的线性单元
     return lu
 
 
@@ -42,11 +46,13 @@ def plot(linear_unit):
     input_vecs, labels = get_training_dataset()
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.scatter(map(lambda x: x[0], input_vecs), labels)
+    # map()  Python2.x 返回列表。 Python3.x 返回迭代器,  matplotlib需要转成list
+    input_v = list(map(lambda x: x[0], input_vecs))
+    ax.scatter(input_v, labels)
     weights = linear_unit.weights
     bias = linear_unit.bias
-    x = range(0,12,1)
-    y = map(lambda x:weights[0] * x + bias, x)
+    x = range(0, 12, 1)
+    y = list(map(lambda x: weights[0] * x + bias, x))
     ax.plot(x, y)
     plt.show()
 
