@@ -3,6 +3,7 @@
 
 import random
 from numpy import *
+from functools import reduce
 
 
 def sigmoid(inX):
