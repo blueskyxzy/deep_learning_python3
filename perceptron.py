@@ -2,6 +2,8 @@
 # -*- coding: UTF-8 -*-
 
 from functools import reduce
+
+
 class Perceptron(object):
     def __init__(self, input_num, activator):
         '''
@@ -13,11 +15,13 @@ class Perceptron(object):
         self.weights = [0.0 for _ in range(input_num)]
         # 偏置项初始化为0
         self.bias = 0.0
+
     def __str__(self):
         '''
         打印学习到的权重、偏置项
         '''
         return 'weights\t:%s\nbias\t:%f\n' % (self.weights, self.bias)
+
     def predict(self, input_vec):
         '''
         输入向量，输出感知器的计算结果
@@ -31,12 +35,14 @@ class Perceptron(object):
                    list(map(lambda x: x[0] * x[1],
                        zip(input_vec, self.weights)))
                 , 0.0) + self.bias)
+
     def train(self, input_vecs, labels, iteration, rate):
         '''
         输入训练数据：一组向量、与每个向量对应的label；以及训练轮数、学习率
         '''
         for i in range(iteration):
             self._one_iteration(input_vecs, labels, rate)
+
     def _one_iteration(self, input_vecs, labels, rate):
         '''
         一次迭代，把所有的训练数据过一遍
@@ -50,6 +56,7 @@ class Perceptron(object):
             output = self.predict(input_vec)
             # 更新权重
             self._update_weights(input_vec, output, label, rate)
+
     def _update_weights(self, input_vec, output, label, rate):
         '''
         按照感知器规则更新权重
@@ -63,6 +70,7 @@ class Perceptron(object):
             zip(input_vec, self.weights)))
         # 更新bias
         self.bias += rate * delta
+
 
 def f(x):
     '''
