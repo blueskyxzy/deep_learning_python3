@@ -15,7 +15,14 @@ from functools import reduce
 
 
 def sigmoid(inX):
-    return 1.0 / (1 + exp(-inX))
+    # print("inX:" + str(inX))
+    y = 1.0 / (1 + exp(-inX))
+    if inX > 50000:
+        print(inX)
+    # print("y:" + str(y))
+    return y
+# def sigmoid(inX):
+#     return longfloat( 1.0/(1+exp(-inX)))
 
 
 # 节点类，负责记录和维护节点自身信息以及与这个节点相关的上下游连接，实现输出值和误差项的计算。
