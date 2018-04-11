@@ -68,7 +68,7 @@ def typeList():
 
 # 字节码转16进制字符串
 def bytes2hex(bytes):
-    print('关键码转码……');
+    print('关键码转码……')
     num = len(bytes)
     hexstr = u""
     for i in range(num):
@@ -81,24 +81,24 @@ def bytes2hex(bytes):
 
 # 获取文件类型
 def filetype(filename):
-    print('读文件二进制码中……');
+    print('读文件二进制码中……')
     binfile = open(filename, 'rb')  # 必需二制字读取
-    print('提取关键码……');
+    print('提取关键码……')
     bins = binfile.read(20)  # 提取20个字符
     binfile.close()  # 关闭文件流
     bins = bytes2hex(bins)  # 转码
     bins = bins.lower()  # 小写
-    print(bins);
+    print(bins)
     tl = typeList()  # 文件类型
     ftype = 'unknown'
-    print('关键码比对中……');
+    print('关键码比对中……')
     for hcode in tl.keys():
         lens = len(hcode)  # 需要的长度
         if bins[0:lens] == hcode:
             ftype = tl[hcode]
             break
     if ftype == 'unknown':  # 全码未找到，优化处理，码表取5位验证
-        bins = bins[0:5];
+        bins = bins[0:5]
         for hcode in tl.keys():
             if len(hcode) > 5 and bins == hcode[0:5]:
                 ftype = tl[hcode]
@@ -109,30 +109,30 @@ def filetype(filename):
 # 文件扫描，如果是目录，就将遍历文件，是文件就判断文件类型
 def filescanner(path):
     if type(path) != type('a'):  # 判断是否为字符串
-        print('抱歉，你输入的不是一个字符串路径！');
+        print('抱歉，你输入的不是一个字符串路径！')
     elif path.strip() == '':  # 将两头的空格移除
-        print('输入的路径为空！');
+        print('输入的路径为空！')
     elif not os.path.exists(path):
-        print('输入的路径不存在！');
+        print('输入的路径不存在！')
     elif os.path.isfile(path):
-        print('输入的路径指向的是文件，验证文件类型……');
+        print('输入的路径指向的是文件，验证文件类型……')
         if path.rfind('.') > 0:
-            print('文件名:', os.path.split(path)[1]);
+            print('文件名:', os.path.split(path)[1])
         else:
-            print('文件名中没有找到格式');
+            print('文件名中没有找到格式')
         path = filetype(path);
-        print('解析文件判断格式：' + path);
+        print('解析文件判断格式：' + path)
     elif os.path.isdir(path):
-        print('输入的路径指向的是目录，开始遍历文件');
+        print('输入的路径指向的是目录，开始遍历文件')
         for p, d, fs in os.walk(path):
-            print(os.path.split(p));
+            print(os.path.split(p))
             for n in fs:
-                n = n.split('.');
-                print('\t' + n[0] + '\t' + n[1]);
+                n = n.split('.')
+                print('\t' + n[0] + '\t' + n[1])
 
 
 if __name__ == '__main__':
-    print('WinSonZhao，欢迎你使用文件扫描工具……');
-    path = input('请输入要扫描的文件夹路径：');
-    filescanner(path);
-    print('扫描结束！');
+    print('WinSonZhao，欢迎你使用文件扫描工具……')
+    path = input('请输入要扫描的文件夹路径：')
+    filescanner(path)
+    print('扫描结束！')
