@@ -8,6 +8,10 @@ def sigmoid(inX):
     return  1.0 / (1 + np.exp(-inX))
 
 
+def exp(x):
+    return np.exp(-x)
+
+
 # e的x的2次方  int 不能大于19  longfloat不能超过110 ，Decimal 256仍然无压力
 x = np.arange(1, 256)
 xx = np.exp(x ** 2)
@@ -20,7 +24,12 @@ y = np.arange(Decimal(30), Decimal(256))
 z = np.exp(y ** 2)
 print(z)
 
-a = np.arange(1, 5000)
+a = np.arange(1, 500)
+b = np.arange(1, 5000)
 for i in a:
     print(sigmoid(i))
+print("b:")
+for i in b:
+    print(exp(i))
+
 print("end")
