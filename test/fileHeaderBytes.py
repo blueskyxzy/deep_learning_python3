@@ -120,7 +120,7 @@ def filescanner(path):
             print('文件名:', os.path.split(path)[1])
         else:
             print('文件名中没有找到格式')
-        path = filetype(path);
+        path = filetype(path)
         print('解析文件判断格式：' + path)
     elif os.path.isdir(path):
         print('输入的路径指向的是目录，开始遍历文件')

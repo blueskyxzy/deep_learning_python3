@@ -4,6 +4,7 @@
 import random
 from numpy import *
 from functools import reduce
+# 全连接神经网络
 
 # 分解出5个领域对象来实现神经网络：
 #
@@ -17,8 +18,8 @@ from functools import reduce
 def sigmoid(inX):
     # print("inX:" + str(inX))
     y = 1.0 / (1 + exp(-inX))
-    if inX > 50000:
-        print(inX)
+    # if inX > 50000:
+    #     print(inX)
     # print("y:" + str(y))
     return y
 # def sigmoid(inX):
@@ -415,5 +416,6 @@ if __name__ == '__main__':
     train(net)
     net.dump()
     correct_ratio(net)
+    print("\n gradient_check_test:")
     gradient_check_test()
 

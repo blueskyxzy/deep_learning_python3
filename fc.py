@@ -6,9 +6,14 @@ import random
 import numpy as np
 from activators import SigmoidActivator, IdentityActivator
 from functools import reduce
+# 更适合深度学习算法的编程方式：向量化编程。
+# 主要有两个原因：一个是我们事实上并不需要真的去定义Node、Connection这样的对象，直接把数学计算实现了就可以了；
+# 另一个原因，是底层算法库会针对向量运算做优化（甚至有专用的硬件，比如GPU），程序效率会提升很多。
+# 所以，在深度学习的世界里，我们总会想法设法的把计算表达为向量的形式
 
 
 # 全连接层实现类
+# 上面这个类一举取代了原先的Layer、Node、Connection等类，不但代码更加容易理解，而且运行速度也快了几百倍。
 class FullConnectedLayer(object):
     def __init__(self, input_size, output_size,
                  activator):
@@ -22,8 +27,7 @@ class FullConnectedLayer(object):
         self.output_size = output_size
         self.activator = activator
         # 权重数组W
-        self.W = np.random.uniform(-0.1, 0.1,
-            (output_size, input_size))
+        self.W = np.random.uniform(-0.1, 0.1, (output_size, input_size))
         # 偏置项b
         self.b = np.zeros((output_size, 1))
         # 输出向量
@@ -158,12 +162,12 @@ from bp import train_data_set
 
 
 def transpose(args):
-    return map(
-        lambda arg: map(
+    return list(map(
+        lambda arg: list(map(
             lambda line: np.array(line).reshape(len(line), 1)
-            , arg)
+            , arg))
         , args
-    )
+    ))
 
 
 class Normalizer(object):

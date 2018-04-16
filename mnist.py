@@ -46,7 +46,7 @@ class ImageLoader(Loader):
             picture.append([])
             for j in range(28):
                 picture[i].append(
-                    self.to_int(content[start + i * 28 + j]))
+                    content[start + i * 28 + j])
         return picture
 
     def get_one_sample(self, picture):
@@ -89,7 +89,7 @@ class LabelLoader(Loader):
         内部函数，将一个值转换为10维标签向量
         '''
         label_vec = []
-        label_value = self.to_int(label)
+        label_value = label
         for i in range(10):
             if i == label_value:
                 label_vec.append(0.9)
@@ -125,7 +125,7 @@ def show(sample):
             else:
                 str += ' '
         str += '\n'
-    print str
+    print(str)
 
 
 def get_result(vec):
@@ -163,15 +163,18 @@ def train_and_evaluate():
     while True:
         epoch += 1
         network.train(train_labels, train_data_set, 0.01, 1)
-        print '%s epoch %d finished, loss %f' % (now(), epoch,
-            network.loss(train_labels[-1], network.predict(train_data_set[-1])))
+        for i in range(10):
+            print('%s epoch %d finished, loss %f，predict %f' % (now(), epoch,
+            network.loss(train_labels[-i-1], network.predict(train_data_set[-i-1]))))
         if epoch % 2 == 0:
             error_ratio = evaluate(network, test_data_set, test_labels)
-            print '%s after epoch %d, error ratio is %f' % (now(), epoch, error_ratio)
+            print('%s after epoch %d, error ratio is %f' % (now(), epoch, error_ratio))
             if error_ratio > last_error_ratio:
                 break
             else:
                 last_error_ratio = error_ratio
 
+
 if __name__ == '__main__':
     train_and_evaluate()
+    print("end")
