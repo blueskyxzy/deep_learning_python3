@@ -91,8 +91,7 @@ def padding(input_array, zp):
 
 # 对numpy数组进行element wise操作
 def element_wise_op(array, op):
-    for i in np.nditer(array,
-                       op_flags=['readwrite']):
+    for i in np.nditer(array, op_flags=['readwrite']):
         i[...] = op(i)
 
 
@@ -106,8 +105,7 @@ class Filter(object):
         self.bias_grad = 0
 
     def __repr__(self):
-        return 'filter weights:\n%s\nbias:\n%s' % (
-            repr(self.weights), repr(self.bias))
+        return 'filter weights:\n%s\nbias:\n%s' % (repr(self.weights), repr(self.bias))
 
     def get_weights(self):
         return self.weights
@@ -376,10 +374,8 @@ def test_bp():
     a, b, cl = init_test()
     cl.backward(a, b, IdentityActivator())
     cl.update()
-    print
-    cl.filters[0]
-    print
-    cl.filters[1]
+    print(cl.filters[0])
+    print(cl.filters[1])
 
 
 def gradient_check():
@@ -412,9 +408,7 @@ def gradient_check():
                 err2 = error_function(cl.output_array)
                 expect_grad = (err1 - err2) / (2 * epsilon)
                 cl.filters[0].weights[d, i, j] += epsilon
-                print
-                'weights(%d,%d,%d): expected - actural %f - %f' % (
-                    d, i, j, expect_grad, cl.filters[0].weights_grad[d, i, j])
+                print('weights(%d,%d,%d): expected - actural %f - %f' % (d, i, j, expect_grad, cl.filters[0].weights_grad[d, i, j]))
 
 
 def init_pool_test():
@@ -442,14 +436,10 @@ def init_pool_test():
 def test_pool():
     a, b, mpl = init_pool_test()
     mpl.forward(a)
-    print
-    'input array:\n%s\noutput array:\n%s' % (a,
-                                             mpl.output_array)
+    print('input array:\n%s\noutput array:\n%s' % (a,mpl.output_array))
 
 
 def test_pool_bp():
     a, b, mpl = init_pool_test()
     mpl.backward(a, b)
-    print
-    'input array:\n%s\nsensitivity array:\n%s\ndelta array:\n%s' % (
-        a, b, mpl.delta_array)
+    print('input array:\n%s\nsensitivity array:\n%s\ndelta array:\n%s' % (a, b, mpl.delta_array))
