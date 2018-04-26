@@ -38,6 +38,7 @@ def get_max_index(array):
 
 
 # 计算卷积
+# conv函数实现了2维和3维数组的卷积
 def conv(input_array,
          kernel_array,
          output_array,
@@ -59,6 +60,7 @@ def conv(input_array,
 
 
 # 为数组增加Zero padding
+# padding函数实现了zero padding操作
 def padding(input_array, zp):
     '''
     为数组增加Zero padding，自动适配输入为2D和3D的情况
@@ -95,6 +97,7 @@ def element_wise_op(array, op):
         i[...] = op(i)
 
 
+# Filter类保存了卷积层的参数以及梯度，并且实现了用梯度下降算法来更新参数
 class Filter(object):
     def __init__(self, width, height, depth):
         self.weights = np.random.uniform(-1e-4, 1e-4,
@@ -118,6 +121,7 @@ class Filter(object):
         self.bias -= learning_rate * self.bias_grad
 
 
+# ConvLayer类来实现一个卷积层
 class ConvLayer(object):
     def __init__(self, input_width, input_height,
                  channel_number, filter_width,
@@ -132,12 +136,10 @@ class ConvLayer(object):
         self.filter_number = filter_number
         self.zero_padding = zero_padding
         self.stride = stride
-        self.output_width = \
-            ConvLayer.calculate_output_size(
+        self.output_width = ConvLayer.calculate_output_size(
                 self.input_width, filter_width, zero_padding,
                 stride)
-        self.output_height = \
-            ConvLayer.calculate_output_size(
+        self.output_height = ConvLayer.calculate_output_size(
                 self.input_height, filter_height, zero_padding,
                 stride)
         self.output_array = np.zeros((self.filter_number,
@@ -149,6 +151,7 @@ class ConvLayer(object):
         self.activator = activator
         self.learning_rate = learning_rate
 
+    # ConvLayer类的forward方法实现了卷积层的前向计算（即计算根据输入来计算卷积层的输出）
     def forward(self, input_array):
         '''
         计算卷积层的输出
@@ -199,7 +202,7 @@ class ConvLayer(object):
         # 但这个残差不需要继续向上传递，因此就不计算了
         expanded_width = expanded_array.shape[2]
         zp = (self.input_width +
-              self.filter_width - 1 - expanded_width) / 2
+              self.filter_width - 1 - expanded_width) // 2
         padded_array = padding(expanded_array, zp)
         # 初始化delta_array，用于保存传递到上一层的
         # sensitivity map
@@ -263,11 +266,12 @@ class ConvLayer(object):
         return np.zeros((self.channel_number,
                          self.input_height, self.input_width))
 
+    # calculate_output_size函数用来确定卷积层输出的大小
     @staticmethod
     def calculate_output_size(input_size,
                               filter_size, zero_padding, stride):
         return (input_size - filter_size +
-                2 * zero_padding) / stride + 1
+                2 * zero_padding) // stride + 1
 
 
 class MaxPoolingLayer(object):
@@ -443,3 +447,8 @@ def test_pool_bp():
     a, b, mpl = init_pool_test()
     mpl.backward(a, b)
     print('input array:\n%s\nsensitivity array:\n%s\ndelta array:\n%s' % (a, b, mpl.delta_array))
+
+# 上面代码值得思考的地方在于，传递给卷积层的sensitivity map是全1数组，留给读者自己推导一下为什么是这样（提示：激活函数选择了identity函数：）
+if __name__ == '__main__':
+    gradient_check()
+

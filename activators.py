@@ -5,6 +5,7 @@
 import numpy as np
 
 
+# Activator类实现了激活函数，其中，forward方法实现了前向计算，而backward方法则是计算导数
 class ReluActivator(object):
     def forward(self, weighted_input):
         #return weighted_input
