@@ -5,6 +5,7 @@
 import numpy as np
 from cnn import element_wise_op
 from activators import ReluActivator, IdentityActivator
+from functools import reduce
 
 
 class RecurrentLayer(object):
@@ -138,9 +139,8 @@ def gradient_check():
             err2 = error_function(rl.state_list[-1])
             expect_grad = (err1 - err2) / (2 * epsilon)
             rl.W[i, j] += epsilon
-            print
-            'weights(%d,%d): expected - actural %f - %f' % (
-                i, j, expect_grad, rl.gradient[i, j])
+            print('weights(%d,%d): expected - actural %f - %f' % (
+                i, j, expect_grad, rl.gradient[i, j]))
 
 
 def test():
@@ -150,3 +150,8 @@ def test():
     l.forward(x[1])
     l.backward(d, ReluActivator())
     return l
+
+
+if __name__ == '__main__':
+    gradient_check()
+
