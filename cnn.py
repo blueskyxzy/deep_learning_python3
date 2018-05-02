@@ -38,6 +38,7 @@ def get_max_index(array):
 
 
 # 计算卷积
+# conv函数实现了2维和3维数组的卷积
 def conv(input_array,
          kernel_array,
          output_array,
@@ -59,6 +60,7 @@ def conv(input_array,
 
 
 # 为数组增加Zero padding
+# padding函数实现了zero padding操作
 def padding(input_array, zp):
     '''
     为数组增加Zero padding，自动适配输入为2D和3D的情况
@@ -90,12 +92,13 @@ def padding(input_array, zp):
 
 
 # 对numpy数组进行element wise操作
+# 迭代对象nditer提供了一种灵活访问一个或者多个数组的方式。
 def element_wise_op(array, op):
-    for i in np.nditer(array,
-                       op_flags=['readwrite']):
+    for i in np.nditer(array, op_flags=['readwrite']):
         i[...] = op(i)
 
 
+# Filter类保存了卷积层的参数以及梯度，并且实现了用梯度下降算法来更新参数
 class Filter(object):
     def __init__(self, width, height, depth):
         self.weights = np.random.uniform(-1e-4, 1e-4,
@@ -106,8 +109,7 @@ class Filter(object):
         self.bias_grad = 0
 
     def __repr__(self):
-        return 'filter weights:\n%s\nbias:\n%s' % (
-            repr(self.weights), repr(self.bias))
+        return 'filter weights:\n%s\nbias:\n%s' % (repr(self.weights), repr(self.bias))
 
     def get_weights(self):
         return self.weights
@@ -120,6 +122,7 @@ class Filter(object):
         self.bias -= learning_rate * self.bias_grad
 
 
+# ConvLayer类来实现一个卷积层
 class ConvLayer(object):
     def __init__(self, input_width, input_height,
                  channel_number, filter_width,
@@ -134,12 +137,10 @@ class ConvLayer(object):
         self.filter_number = filter_number
         self.zero_padding = zero_padding
         self.stride = stride
-        self.output_width = \
-            ConvLayer.calculate_output_size(
+        self.output_width = ConvLayer.calculate_output_size(
                 self.input_width, filter_width, zero_padding,
                 stride)
-        self.output_height = \
-            ConvLayer.calculate_output_size(
+        self.output_height = ConvLayer.calculate_output_size(
                 self.input_height, filter_height, zero_padding,
                 stride)
         self.output_array = np.zeros((self.filter_number,
@@ -151,6 +152,7 @@ class ConvLayer(object):
         self.activator = activator
         self.learning_rate = learning_rate
 
+    # ConvLayer类的forward方法实现了卷积层的前向计算（即计算根据输入来计算卷积层的输出）
     def forward(self, input_array):
         '''
         计算卷积层的输出
@@ -201,7 +203,7 @@ class ConvLayer(object):
         # 但这个残差不需要继续向上传递，因此就不计算了
         expanded_width = expanded_array.shape[2]
         zp = (self.input_width +
-              self.filter_width - 1 - expanded_width) / 2
+              self.filter_width - 1 - expanded_width) // 2
         padded_array = padding(expanded_array, zp)
         # 初始化delta_array，用于保存传递到上一层的
         # sensitivity map
@@ -212,9 +214,9 @@ class ConvLayer(object):
         for f in range(self.filter_number):
             filter = self.filters[f]
             # 将filter权重翻转180度
-            flipped_weights = np.array(map(
+            flipped_weights = np.array(list(map(
                 lambda i: np.rot90(i, 2),
-                filter.get_weights()))
+                filter.get_weights())))
             # 计算与一个filter对应的delta_array
             delta_array = self.create_delta_array()
             for d in range(delta_array.shape[0]):
@@ -265,11 +267,12 @@ class ConvLayer(object):
         return np.zeros((self.channel_number,
                          self.input_height, self.input_width))
 
+    # calculate_output_size函数用来确定卷积层输出的大小
     @staticmethod
     def calculate_output_size(input_size,
                               filter_size, zero_padding, stride):
         return (input_size - filter_size +
-                2 * zero_padding) / stride + 1
+                2 * zero_padding) // stride + 1
 
 
 class MaxPoolingLayer(object):
@@ -376,10 +379,8 @@ def test_bp():
     a, b, cl = init_test()
     cl.backward(a, b, IdentityActivator())
     cl.update()
-    print
-    cl.filters[0]
-    print
-    cl.filters[1]
+    print(cl.filters[0])
+    print(cl.filters[1])
 
 
 def gradient_check():
@@ -412,9 +413,7 @@ def gradient_check():
                 err2 = error_function(cl.output_array)
                 expect_grad = (err1 - err2) / (2 * epsilon)
                 cl.filters[0].weights[d, i, j] += epsilon
-                print
-                'weights(%d,%d,%d): expected - actural %f - %f' % (
-                    d, i, j, expect_grad, cl.filters[0].weights_grad[d, i, j])
+                print('weights(%d,%d,%d): expected - actural %f - %f' % (d, i, j, expect_grad, cl.filters[0].weights_grad[d, i, j]))
 
 
 def init_pool_test():
@@ -442,14 +441,15 @@ def init_pool_test():
 def test_pool():
     a, b, mpl = init_pool_test()
     mpl.forward(a)
-    print
-    'input array:\n%s\noutput array:\n%s' % (a,
-                                             mpl.output_array)
+    print('input array:\n%s\noutput array:\n%s' % (a,mpl.output_array))
 
 
 def test_pool_bp():
     a, b, mpl = init_pool_test()
     mpl.backward(a, b)
-    print
-    'input array:\n%s\nsensitivity array:\n%s\ndelta array:\n%s' % (
-        a, b, mpl.delta_array)
+    print('input array:\n%s\nsensitivity array:\n%s\ndelta array:\n%s' % (a, b, mpl.delta_array))
+
+# 上面代码值得思考的地方在于，传递给卷积层的sensitivity map是全1数组，留给读者自己推导一下为什么是这样（提示：激活函数选择了identity函数：）
+if __name__ == '__main__':
+    gradient_check()
+
