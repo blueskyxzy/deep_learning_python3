@@ -92,6 +92,7 @@ def padding(input_array, zp):
 
 
 # 对numpy数组进行element wise操作
+# 迭代对象nditer提供了一种灵活访问一个或者多个数组的方式。
 def element_wise_op(array, op):
     for i in np.nditer(array, op_flags=['readwrite']):
         i[...] = op(i)
@@ -213,9 +214,9 @@ class ConvLayer(object):
         for f in range(self.filter_number):
             filter = self.filters[f]
             # 将filter权重翻转180度
-            flipped_weights = np.array(map(
+            flipped_weights = np.array(list(map(
                 lambda i: np.rot90(i, 2),
-                filter.get_weights()))
+                filter.get_weights())))
             # 计算与一个filter对应的delta_array
             delta_array = self.create_delta_array()
             for d in range(delta_array.shape[0]):
